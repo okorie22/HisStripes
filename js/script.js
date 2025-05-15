@@ -1,6 +1,17 @@
-// Main JavaScript file for His Stripes Healthcare Service website
+// Main JavaScript file for HisStripes Health Care Services, PLLC website
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Active navigation highlighting
+    const currentLocation = location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        if(link.getAttribute('href') === currentLocation || 
+           (currentLocation === '/' && link.getAttribute('href') === 'index.html')) {
+            link.classList.add('active');
+        }
+    });
+
     // Form validation for contact form
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -158,19 +169,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add responsive navigation for mobile devices
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            // Close mobile menu when a link is clicked
-            const navContainer = document.querySelector('.nav-container');
-            const mobileToggle = document.querySelector('.mobile-nav-toggle');
-            if (navContainer && navContainer.classList.contains('active')) {
-                navContainer.classList.remove('active');
-                if (mobileToggle) {
-                    mobileToggle.classList.remove('active');
-                }
-            }
+    // Card hover effects
+    const cards = document.querySelectorAll('.feature-card, .service-card, .insurance-card, .cta-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+            this.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
+            this.style.transition = 'all 0.3s ease';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.boxShadow = '';
         });
     });
 
@@ -184,6 +194,52 @@ document.addEventListener('DOMContentLoaded', function() {
             mobileToggle.classList.toggle('active');
         });
     }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (navContainer && navContainer.classList.contains('active')) {
+            if (!e.target.closest('.nav-container') && !e.target.closest('.mobile-nav-toggle')) {
+                navContainer.classList.remove('active');
+                if (mobileToggle) {
+                    mobileToggle.classList.remove('active');
+                }
+            }
+        }
+    });
+
+    // Add animation on scroll
+    const animatedElements = document.querySelectorAll('.hero-content, .feature-card, .service-card, .insurance-card, .about-content, .about-image');
+    
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0
+        );
+    }
+    
+    // Function to add animation class when element is in viewport
+    function checkViewport() {
+        animatedElements.forEach(element => {
+            if (isInViewport(element) && !element.classList.contains('animated')) {
+                element.classList.add('animated');
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    }
+    
+    // Initialize animation styles
+    animatedElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+    
+    // Check on load and scroll
+    window.addEventListener('load', checkViewport);
+    window.addEventListener('scroll', checkViewport);
 });
 
 // Add CSS for form validation
@@ -197,6 +253,11 @@ document.head.insertAdjacentHTML('beforeend', `
     
     input:invalid, textarea:invalid, select:invalid {
         border-color: red;
+    }
+    
+    .animated {
+        opacity: 1;
+        transform: translateY(0);
     }
 </style>
 `);
