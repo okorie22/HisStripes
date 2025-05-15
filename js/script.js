@@ -192,6 +192,19 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileToggle.addEventListener('click', function() {
             navContainer.classList.toggle('active');
             mobileToggle.classList.toggle('active');
+            
+            // Prevent page scrolling when menu is open
+            document.body.classList.toggle('menu-open');
+        });
+        
+        // Make menu links close the mobile menu when clicked
+        const menuLinks = navContainer.querySelectorAll('.nav-link');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navContainer.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
         });
     }
     
@@ -203,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (mobileToggle) {
                     mobileToggle.classList.remove('active');
                 }
+                document.body.classList.remove('menu-open');
             }
         }
     });

@@ -27,9 +27,14 @@
 
 body {
   font-family: var(--font-primary);
-  color: var(--text-color);
   line-height: 1.6;
+  color: var(--text-color);
   background-color: #fff;
+  overflow-x: hidden;
+}
+
+body.menu-open {
+  overflow: hidden;
 }
 
 .container {
@@ -53,6 +58,7 @@ header {
   color: var(--accent-color);
 }
 
+/* Top Info Bar - Contact Info */
 .top-info-bar {
   background-color: #000;
   padding: 10px 0;
@@ -63,12 +69,14 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .info-item {
   display: flex;
   align-items: center;
   font-size: 14px;
+  margin: 5px 0;
 }
 
 .info-item i {
@@ -82,6 +90,7 @@ header {
   align-items: center;
   justify-content: center;
   font-size: 15px;
+  flex-shrink: 0;
 }
 
 .info-item a {
@@ -158,13 +167,13 @@ header {
   justify-content: space-between;
   cursor: pointer;
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 15px;
-  z-index: 10;
+  z-index: 20;
   background-color: var(--accent-color);
-  padding: 8px;
+  padding: 10px;
   border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   width: 40px;
   height: 30px;
   transition: var(--transition);
@@ -176,6 +185,18 @@ header {
   background-color: var(--secondary-color);
   border-radius: 10px;
   transition: var(--transition);
+}
+
+.mobile-nav-toggle.active .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-nav-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-nav-toggle.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
 }
 
 /* Hero Section */
@@ -604,16 +625,20 @@ footer {
 .footer-info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .footer-address,
 .footer-contact,
 .footer-email {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  margin: 5px 0;
+  flex: 1 1 300px;
 }
 
 .footer-icon {
@@ -655,8 +680,14 @@ footer {
   }
   
   .footer-info {
-    flex-direction: column;
-    gap: 20px;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .footer-address,
+  .footer-contact,
+  .footer-email {
+    justify-content: center;
   }
 }
 
@@ -672,6 +703,7 @@ footer {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     z-index: 100;
     padding: 20px 0;
+    text-align: center;
   }
   
   .nav-container.active {
@@ -685,6 +717,11 @@ footer {
   .top-info-container {
     flex-direction: column;
     gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .info-item {
+    width: 100%;
   }
   
   .hero h1 {
@@ -712,6 +749,33 @@ footer {
   .insurance-tab {
     padding: 10px 15px;
     font-size: 14px;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .info-item i {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+  
+  .footer-address,
+  .footer-contact,
+  .footer-email {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-icon {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .footer-text {
+    text-align: center;
   }
 }
 
