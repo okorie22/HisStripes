@@ -236,7 +236,7 @@ header {
   display: block;
   font-size: 40px;
   margin-top: 10px;
-  color: var(--primary-color);
+  color: #ddc7c7;
 }
 
 .hero-subtitle {
